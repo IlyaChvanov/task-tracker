@@ -26,5 +26,6 @@ public class TaskStateEntity {
     private Long ordinal;
 
     @OneToMany
+    @JoinColumn(name = "task_state_id", referencedColumnName = "id")
     private List<TaskEntity> tasks = new ArrayList<>();
 }

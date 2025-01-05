@@ -27,5 +27,6 @@ public class ProjectEntity {
     private Instant creationDate = Instant.now();
 
     @OneToMany
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
     private List<TaskStateEntity> taskStates = new ArrayList<>();
 }
