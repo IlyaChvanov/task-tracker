@@ -1,10 +1,7 @@
 package ru.hse.tasktrackerapi.store;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -16,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "project")
+@Builder
 public class ProjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -24,6 +22,7 @@ public class ProjectEntity {
     @Column(unique = true)
     private String name;
 
+    @Builder.Default
     private Instant creationDate = Instant.now();
 
     @OneToMany
