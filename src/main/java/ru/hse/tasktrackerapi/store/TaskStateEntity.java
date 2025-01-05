@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class TaskStateEntity {
     private String name;
 
     private Long ordinal;
+
+    private Instant creationDate = Instant.now();
 
     @OneToMany
     @JoinColumn(name = "task_state_id", referencedColumnName = "id")
