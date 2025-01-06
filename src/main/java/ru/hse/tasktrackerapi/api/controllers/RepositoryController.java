@@ -1,5 +1,6 @@
 package ru.hse.tasktrackerapi.api.controllers;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.hse.tasktrackerapi.api.dto.ProjectDto;
@@ -16,16 +17,17 @@ import java.util.stream.Stream;
 
 @RestController
 @RequiredArgsConstructor
+@Transactional
 public class RepositoryController {
     private final ProjectRepository projectRepository;
     private final ProjectDtoFactory projectDtoFactory;
 
     private final String FETCH_PROJECTS = "/api/projects";
-    private final String CREATE_REPOSITORY = "/api/projects";
+    private final String CREATE_PROJECT = "/api/projects";
     private final String EDIT_REPOSITORY = "/api/projects/{project_id}";
     private final String DELETE_REPOSITORY = "/api/projects/{project_id}";
 
-    @PostMapping(CREATE_REPOSITORY)
+    @PostMapping(CREATE_PROJECT)
     public ProjectDto createRepository(@RequestParam String name) {
         if (name.trim().isEmpty()) {
             throw new BadRequestException("Repository name is empty");
@@ -69,13 +71,14 @@ public class RepositoryController {
 
     @GetMapping(FETCH_PROJECTS)
     public List<ProjectDto> getAllProjects(
-            @RequestParam(value = "prefixName", required = false) Optional<String> prefixName) {
+            @RequestParam(value = "prefix_name", required = false) Optional<String> prefixName) {
 
         prefixName = prefixName.filter(pref -> !pref.trim().isEmpty());
 
         Stream<ProjectEntity> projectEntityStream = prefixName
                 .map(projectRepository::streamAllByNameStartsWith)
                 .orElse(Stream.empty());
+
 
         return projectEntityStream
                 .map(projectDtoFactory::makeProjectDto).collect(Collectors.toList());
