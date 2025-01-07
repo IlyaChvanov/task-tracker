@@ -77,7 +77,7 @@ public class RepositoryController {
 
         Stream<ProjectEntity> projectEntityStream = prefixName
                 .map(projectRepository::streamAllByNameStartsWith)
-                .orElse(Stream.empty());
+                .orElseGet(projectRepository::streamAllBy);
 
 
         return projectEntityStream
