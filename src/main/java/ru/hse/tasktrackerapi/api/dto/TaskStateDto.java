@@ -2,25 +2,34 @@ package ru.hse.tasktrackerapi.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class TaskStateDto {
-    @NonNull
-    private Long id;
 
     @NonNull
-    private String name;
+    Long id;
 
     @NonNull
-    private Long ordinal;
+    String name;
 
-    @JsonProperty("creation_date")
-    private Instant creationDate;
+    @JsonProperty("left_task_state_id")
+    Long leftTaskStateId;
 
+    @JsonProperty("right_task_state_id")
+    Long rightTaskStateId;
 
+    @NonNull
+    @JsonProperty("created_at")
+    Instant creationDate;
+
+    @NonNull
+    List<TaskDto> tasks;
 }
