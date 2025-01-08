@@ -18,7 +18,8 @@ import java.util.stream.Stream;
 @RestController
 @RequiredArgsConstructor
 @Transactional
-public class RepositoryController {
+public class ProjectController {
+
     private final ProjectRepository projectRepository;
     private final ProjectDtoFactory projectDtoFactory;
 
