@@ -19,6 +19,7 @@ import java.time.Instant;
 @Table(name = "task")
 public class TaskEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(unique = true)
@@ -26,5 +27,6 @@ public class TaskEntity {
 
     private String description;
 
+    @Builder.Default
     private Instant creationDate = Instant.now();
 }
