@@ -12,6 +12,7 @@ public class TaskDtoFactory {
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .creationDate(entity.getCreationDate())
+                .taskState(entity.getTaskState().getName())
                 .build();
     }
 }

@@ -22,4 +22,7 @@ public class TaskDto {
     @NonNull
     @JsonProperty("creation_date")
     private Instant creationDate;
+
+    @NonNull
+    private String taskState;
 }

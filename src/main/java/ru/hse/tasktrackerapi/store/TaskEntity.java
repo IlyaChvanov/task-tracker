@@ -1,13 +1,7 @@
 package ru.hse.tasktrackerapi.store;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 import java.time.Instant;
 
@@ -17,6 +11,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Entity
 @Table(name = "task")
+@Builder
 public class TaskEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -29,4 +24,8 @@ public class TaskEntity {
 
     @Builder.Default
     private Instant creationDate = Instant.now();
+
+    @ManyToOne
+    @JoinColumn(name = "task_state_id", referencedColumnName = "id")
+    private TaskStateEntity taskState;
 }
